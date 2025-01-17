@@ -1,12 +1,12 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { BaseRepository } from '../../database/abstractions/base-repository.interface';
+import { AbstractRepository } from '../../database/abstractions/abstract-repository';
 import { User } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('UserDbRepository') // Usamos el token dinámico actualizado
-    private readonly userRepository: BaseRepository<User>,
+    @Inject('UserDbRepository')
+    private readonly userRepository: AbstractRepository<User>,
   ) {
   }
 

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { Repository, DeepPartial, ObjectLiteral } from 'typeorm';
-import { BaseRepository } from '../../abstractions/base-repository.interface';
+import { AbstractRepository } from '../../abstractions/abstract-repository';
 import { BaseEntity } from '../../abstractions/entity-factory';
 
 @Injectable()
 export class TypeOrmRepository<T extends BaseEntity & ObjectLiteral>
-    implements BaseRepository<T> {
+    implements AbstractRepository<T> {
     constructor(private readonly repository: Repository<T>) {
         console.log(`[TypeOrmRepository] Repositorio inyectado para la entidad`);
     }
