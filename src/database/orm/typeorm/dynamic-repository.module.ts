@@ -9,7 +9,7 @@ import { BaseEntity } from '../../abstractions/entity-factory';
 export class DynamicRepositoryModule {
     static forEntity<T extends BaseEntity>(entity: new () => T): DynamicModule {
         const repositoryToken = getRepositoryToken(entity); // Token interno de TypeORM
-        const dynamicToken = `${entity.name}CustomRepository`; // Token personalizado
+        const dynamicToken = `${entity.name}DbRepository`; // Token personalizado
 
         console.log(`[DynamicRepositoryModule] Registrando entidad: ${entity.name}`);
         console.log(`[DynamicRepositoryModule] Token TypeORM: ${repositoryToken}`);
