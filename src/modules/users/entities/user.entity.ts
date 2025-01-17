@@ -9,9 +9,9 @@ export interface User {
 }
 
 export const UserEntity = createEntity<User>('typeorm', 'User', [
-    { name: 'name', type: 'string' },
-    { name: 'email', type: 'string', unique: true },
-    { name: 'password', type: 'string' },
+    { name: 'name', type: 'text' },
+    { name: 'email', type: 'text', unique: true },
+    { name: 'password', type: 'text' },
     { name: 'isActive', type: 'boolean', default: true },
 ]);
 

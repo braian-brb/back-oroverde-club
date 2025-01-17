@@ -5,7 +5,7 @@ export function createTypeOrmEntity<T extends { id: number }>(
     entityName: string,
     columns: ColumnConfig[],
 ): new (partial?: Partial<T>) => T {
-    @Entity(entityName) // Usa el nombre correcto de la entidad
+    @Entity(entityName)
     class DynamicTypeOrmEntity {
         @PrimaryGeneratedColumn()
         id!: number;
@@ -17,12 +17,13 @@ export function createTypeOrmEntity<T extends { id: number }>(
         }
     }
 
-    columns.forEach(({ name, type = 'string', unique, default: defaultValue }) => {
+    columns.forEach(({ name, type = 'text', unique, default: defaultValue }) => {
+        console.log(`[createTypeOrmEntity] Registrando columna: ${name}`);
+        console.log(`[createTypeOrmEntity] Tipo: ${type}`);
+        console.log(`[createTypeOrmEntity] Unique: ${unique}`);
+        console.log(`[createTypeOrmEntity] Default: ${defaultValue}`);
         Column({ type, unique, default: defaultValue })(DynamicTypeOrmEntity.prototype, name);
     });
-
-    // Asigna dinámicamente el nombre a la clase
-    Object.defineProperty(DynamicTypeOrmEntity, 'name', { value: entityName });
 
     return DynamicTypeOrmEntity as any as new (partial?: Partial<T>) => T;
 }

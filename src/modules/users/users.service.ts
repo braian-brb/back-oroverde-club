@@ -5,7 +5,7 @@ import { User } from './entities/user.entity';
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('UserCustomRepository') // Usamos el token dinámico actualizado
+    @Inject('DynamicTypeOrmEntityCustomRepository') // Usamos el token dinámico actualizado
     private readonly userRepository: BaseRepository<User>,
   ) {
     console.log('[UsersService] UserCustomRepository inyectado correctamente');

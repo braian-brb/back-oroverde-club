@@ -2,7 +2,7 @@ import { createTypeOrmEntity } from "../orm/typeorm/create-entity";
 
 export type ColumnConfig = {
     name: string;
-    type?: 'string' | 'number' | 'boolean';
+    type?: 'text' | 'number' | 'boolean';
     unique?: boolean;
     default?: any;
 };
