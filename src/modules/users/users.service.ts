@@ -1,33 +1,38 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { BaseRepository } from '../../database/abstractions/base-repository.interface';
 import { User } from './entities/user.entity';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @Inject('UserRepository')
+    @Inject('UserCustomRepository') // Usamos el token dinámico actualizado
     private readonly userRepository: BaseRepository<User>,
-  ) { }
+  ) {
+    console.log('[UsersService] UserCustomRepository inyectado correctamente');
+  }
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
-    return await this.userRepository.create(createUserDto);
+  async create(data: Partial<User>): Promise<User> {
+    console.log('[UsersService] Creando usuario...');
+    return this.userRepository.create(data);
   }
 
   async findAll(): Promise<User[]> {
-    return await this.userRepository.findAll();
+    console.log('[UsersService] Obteniendo todos los usuarios...');
+    return this.userRepository.findAll();
   }
 
   async findOne(id: number): Promise<User | null> {
-    return await this.userRepository.findOne(id);
+    console.log(`[UsersService] Obteniendo usuario con ID: ${id}`);
+    return this.userRepository.findOne(id);
   }
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User | null> {
-    return await this.userRepository.update(id, updateUserDto);
+  async update(id: number, data: Partial<User>): Promise<User | null> {
+    console.log(`[UsersService] Actualizando usuario con ID: ${id}`);
+    return this.userRepository.update(id, data);
   }
 
   async remove(id: number): Promise<void> {
+    console.log(`[UsersService] Eliminando usuario con ID: ${id}`);
     await this.userRepository.delete(id);
   }
 }

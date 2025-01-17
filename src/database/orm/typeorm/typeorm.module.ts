@@ -21,6 +21,8 @@ export class TypeOrmModule {
     }
 
     static forFeature(entities: any[]): DynamicModule {
+        console.log('Entidades registradas:', entities);
+
         return {
             module: TypeOrmModule,
             imports: [NestTypeOrmModule.forFeature(entities)],

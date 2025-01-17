@@ -1,15 +1,14 @@
-import { Injectable, Type } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { Repository, DeepPartial, ObjectLiteral } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
 import { BaseRepository } from '../../abstractions/base-repository.interface';
 import { BaseEntity } from '../../abstractions/entity-factory';
 
 @Injectable()
-export class TypeOrmRepository<T extends BaseEntity & ObjectLiteral> implements BaseRepository<T> {
-    constructor(
-        @InjectRepository(Object as unknown as Type<T>) 
-        private readonly repository: Repository<T>,
-    ) {}
+export class TypeOrmRepository<T extends BaseEntity & ObjectLiteral>
+    implements BaseRepository<T> {
+    constructor(private readonly repository: Repository<T>) {
+        console.log(`[TypeOrmRepository] Repositorio inyectado para la entidad`);
+    }
 
     async create(data: Partial<T>): Promise<T> {
         const entity = this.repository.create(data as DeepPartial<T>);
