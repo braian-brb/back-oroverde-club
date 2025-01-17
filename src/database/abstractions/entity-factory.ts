@@ -7,11 +7,15 @@ export type ColumnConfig = {
     default?: any;
 };
 
-export function createEntity<T>(
+export interface BaseEntity {
+    id: number;
+}
+
+export function createEntity<T extends BaseEntity>(
     orm: 'typeorm' | 'drizzle',
     entityName: string,
     columns: ColumnConfig[],
-): { new(): T } {
+): { new(partial?: Partial<T>): T } {
     switch (orm) {
         case 'typeorm':
             return createTypeOrmEntity<T>(entityName, columns);
@@ -21,4 +25,3 @@ export function createEntity<T>(
             throw new Error(`ORM ${orm} is not supported.`);
     }
 }
-
